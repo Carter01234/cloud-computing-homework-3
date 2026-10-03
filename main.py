@@ -14,6 +14,7 @@ storage_client = storage.Client()
 
 
 def get_file_from_bucket(filename: str) -> bytes | None: 
+    print(f'{PREFIX}/{filename}')
     blob = storage_client.bucket(BUCKET_NAME).blob(f'{PREFIX}/{filename}')
     try:
         return blob.download_as_bytes()
