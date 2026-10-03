@@ -1,0 +1,18 @@
+# Files listed here are NOT uploaded when you run `gcloud functions deploy`.
+# Only main.py and requirements.txt need to reach Google Cloud.
+
+# Git and gcloud metadata
+.git/
+.gitignore
+.gcloudignore
+
+# Virtual environment
+venv/
+.venv/
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+
+# OS files
+.DS_Store
