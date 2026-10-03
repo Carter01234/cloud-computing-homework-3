@@ -14,7 +14,6 @@ storage_client = storage.Client()
 
 
 def get_file_from_bucket(filename: str) -> bytes | None: 
-    print(f'{PREFIX}/{filename}')
     blob = storage_client.bucket(BUCKET_NAME).blob(f'{PREFIX}/{filename}')
     try:
         return blob.download_as_bytes()
@@ -43,8 +42,15 @@ def handle_request(request: Request) -> ResponseReturnValue:
                 content_type = mimetypes.guess_type(filename)[0] or "text/plain"
                 return (contents, 200, {"Content-Type": content_type})
         case "POST":
-            print("POST content-type:", request.content_type)
-            print("POST body:", request.get_data(as_text=True))
-            return ("Got your POST\n", 200)
+            data = request.get_json()
+            filename = data.get("filename")
+            contents = get_file_from_bucket(filename)
+
+            if contents is None:
+                return (f"File not found: {filename}", 404)
+            else: 
+                content_type = mimetypes.guess_type(filename)[0] or "text/plain"
+                return (contents, 200, {"Content-Type": content_type})
+            
         case _:
             return ("Method not allowed", 405, {"Allow": "GET, POST"})
