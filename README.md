@@ -23,4 +23,20 @@ Running the server locally: `functions-framework --target=handle_request --debug
 
 You need to have the --debug flag or an existing bug with storage.Client() on MacOS will break everything at runtime.
 
-Running the client which exists in a different directory: `./http-client -d localhost -p 8080 -b none -w none -n 5 -v`
+Running the client for the local server: `./http-client -d localhost -p 8080 -b none -w none -n 5 -v`
+
+Running the client for the cloud function: `./http-client -d file-server-3b5obgmrla-uc.a.run.app -p 443 -p 443 -s -b none -w none -i 9999 -n 20 -v`
+
+Deploying the server to google cloud: 
+
+```
+gcloud functions deploy file-server \
+  --gen2 \
+  --runtime=python312 \
+  --region=us-central1 \
+  --source=. \
+  --entry-point=handle_request \
+  --trigger-http \
+  --allow-unauthenticated \
+  --service-account=homework3@project-8aeecca0-4f70-4c6b-8e3.iam.gserviceaccount.com
+```
