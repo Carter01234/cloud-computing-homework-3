@@ -10,7 +10,7 @@ from google.cloud import storage
  
 BUCKET_NAME = "html-files-for-class"
 PREFIX="forbidden-logs"
-LOG_OBJECT = "forbidden_requests.log"
+LOG_OBJECT = "forbidden_requests.txt"
 
 
 storageClient = storage.Client()

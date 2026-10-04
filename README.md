@@ -20,6 +20,11 @@ curl -i -H "X-country: Iran" https://file-server-3b5obgmrla-uc.a.run.app/1164.ht
 curl -i -X POST https://us-central1-project-8aeecca0-4f70-4c6b-8e3.cloudfunctions.net/file-server \
   -H "Content-Type: application/json" \
   -d '{"filename": "1164.html"}'
+
+curl -i -X POST https://us-central1-project-8aeecca0-4f70-4c6b-8e3.cloudfunctions.net/file-server \
+  -H "Content-Type: application/json" \
+  -H "X-country: Iran" \
+  -d '{"filename": "1164.html"}'
 ```
 
 
@@ -61,3 +66,14 @@ gcloud functions deploy file-server \
 ```
 
 Pulling down locally from pubsub: `gcloud pubsub subscriptions pull forbidden-requests-test --auto-ack`
+
+Deploying the error logging cloud function:
+
+```
+gcloud functions deploy forbidden-logger \
+  --gen2 --runtime=python312 --region=us-central1 \
+  --source=. --entry-point=handle_forbidden_request \
+  --trigger-topic=forbidden-requests \
+  --service-account=homework3@project-8aeecca0-4f70-4c6b-8e3.iam.gserviceaccount.com \
+  --trigger-service-account=homework3@project-8aeecca0-4f70-4c6b-8e3.iam.gserviceaccount.com
+```
