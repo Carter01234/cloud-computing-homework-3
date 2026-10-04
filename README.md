@@ -1,5 +1,7 @@
 # Common Commands 
 
+Activate venv first: `source venv/bin/activate`
+
 Authenticating this with gcloud locally: `gcloud auth application-default login`
 
 Calling the server handler locally with curl: 
@@ -23,9 +25,9 @@ Running the server locally: `functions-framework --target=handle_request --debug
 
 You need to have the --debug flag or an existing bug with storage.Client() on MacOS will break everything at runtime.
 
-Running the client for the local server: `./http-client -d localhost -p 8080 -b none -w none -n 5 -v`
+Running the client for the local server: `./http-client -d localhost -p 8080 -b none -w none -i 9999 -n 5 -v`
 
-Running the client for the cloud function: `./http-client -d file-server-3b5obgmrla-uc.a.run.app -p 443 -p 443 -s -b none -w none -i 9999 -n 20 -v`
+Running the client for the cloud function: `./http-client -d file-server-3b5obgmrla-uc.a.run.app -b none -w none -s -i 9999 -n 100 -v`
 
 Deploying the server to google cloud: 
 

@@ -60,4 +60,9 @@ def handle_request(request: Request) -> ResponseReturnValue:
                 return (contents, 200, {"Content-Type": content_type})
             
         case _:
-            return ("Method not allowed", 405, {"Allow": "GET, POST"})
+            print(json.dumps({
+                "severity": "ERROR",
+                "message": f"This service does not support messages other than GET or POST",
+                "status": 501,
+            }))
+            return ("Method not allowed", 501, {"Allow": "GET, POST"})
