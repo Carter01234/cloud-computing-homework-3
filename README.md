@@ -21,6 +21,21 @@ curl -i -X POST https://us-central1-project-8aeecca0-4f70-4c6b-8e3.cloudfunction
 ```
 
 
+Get Request on the Browser: `https://us-central1-project-8aeecca0-4f70-4c6b-8e3.cloudfunctions.net/file-server/<html-num>.html`
+
+Post Request in the Safari Console: 
+
+```
+fetch("/file-server", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ filename: "4610.html" }),
+})
+  .then(res => { console.log(res.status); return res.text(); })
+  .then(text => console.log(text));
+```
+
+
 Running the server locally: `functions-framework --target=handle_request --debug`
 
 You need to have the --debug flag or an existing bug with storage.Client() on MacOS will break everything at runtime.
